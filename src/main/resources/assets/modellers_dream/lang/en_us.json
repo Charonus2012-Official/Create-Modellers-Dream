@@ -1,0 +1,18 @@
+{
+
+  "creativetab.modellers_dream.modellers_dream_tab": "Create: Modellers Dream",
+
+  "block.modellers_dream.dispatcher_table": "Dispatcher Table",
+  "block.modellers_dream.track_connector": "Track Connector",
+
+  "item.modellers_dream.track_communicator": "Track Communicator",
+  "item.modellers_dream.incomplete_track_communicator": "Incomplete Track Communicator",
+
+  "modellers_dream.track_connector.set": "Track Connector: position set. Right-click a block to place.",
+  "modellers_dream.track_connector.clear": "Track Connector: selection cleared.",
+  "modellers_dream.track_connector.missing": "Select a track first.",
+  "modellers_dream.track_connector.occupied": "That rail block is already occupied.",
+  "modellers_dream.dispatcher_table.linked": "Dispatcher Table linked to Track Connector",
+  "modellers_dream.dispatcher_table.cleared": "Dispatcher Table network cleared.",
+  "modellers_dream.dispatcher_table.missing_link": "Link a Track Connector first."
+}

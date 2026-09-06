@@ -1,0 +1,61 @@
+{
+  "type": "create:sequenced_assembly",
+  "ingredient": {
+    "item": "create:sturdy_sheet"
+  },
+  "results": [
+    {
+      "id": "modellers_dream:track_communicator"
+    }
+  ],
+  "sequence": [
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "modellers_dream:incomplete_track_communicator"
+        },
+        {
+          "item": "create:factory_gauge"
+        }
+      ],
+      "results": [
+        {
+          "id": "modellers_dream:incomplete_track_communicator"
+        }
+      ]
+    },
+    {
+      "type": "create:deploying",
+      "ingredients": [
+        {
+          "item": "modellers_dream:incomplete_track_communicator"
+        },
+        {
+          "item": "create:redstone_link"
+        }
+      ],
+      "results": [
+        {
+          "id": "modellers_dream:incomplete_track_communicator"
+        }
+      ]
+    },
+    {
+      "type": "create:pressing",
+      "ingredients": [
+        {
+          "item": "modellers_dream:incomplete_track_communicator"
+        }
+      ],
+      "results": [
+        {
+          "id": "modellers_dream:incomplete_track_communicator"
+        }
+      ]
+    }
+  ],
+  "transitional_item": {
+    "id": "modellers_dream:incomplete_track_communicator"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {"item": "create:brass_casing"},
+    "R": {"item": "create:redstone_link"},
+    "D": {"item": "create:display_board"},
+    "S": {"item": "create:schedule"},
+    "E": {"item": "create:electron_tube"}
+  },
+  "pattern": [
+    " D ",
+    "RCS",
+    " E "
+  ],
+  "result": {
+    "count": 1,
+    "id": "modellers_dream:dispatcher_table"
+  }
+}

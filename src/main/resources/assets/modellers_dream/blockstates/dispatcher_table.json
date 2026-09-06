@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "modellers_dream:block/dispatcher_table" },
+    "facing=south": { "model": "modellers_dream:block/dispatcher_table", "y": 180 },
+    "facing=east": { "model": "modellers_dream:block/dispatcher_table", "y": 90 },
+    "facing=west": { "model": "modellers_dream:block/dispatcher_table", "y": 270 }
+  }
+}

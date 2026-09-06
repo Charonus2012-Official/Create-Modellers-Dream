@@ -1,0 +1,16 @@
+{
+  "type": "create:deploying",
+  "ingredients": [
+    {
+      "item": "create:track_observer"
+    },
+    {
+      "item": "modellers_dream:track_communicator"
+    }
+  ],
+  "results": [
+    {
+      "id": "modellers_dream:track_connector"
+    }
+  ]
+}

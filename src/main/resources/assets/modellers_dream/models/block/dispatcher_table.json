@@ -1,0 +1,71 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"parent": "block/block",
+	"texture_size": [64, 64],
+	"textures": {
+		"0": "modellers_dream:block/dispatcher_table",
+		"particle": "modellers_dream:block/dispatcher_table"
+	},
+	"elements": [
+		{
+			"name": "StandBottom",
+			"from": [0, 0, 0],
+			"to": [16, 2, 16],
+			"faces": {
+				"north": {"uv": [0, 10, 4, 10.5], "texture": "#0"},
+				"east": {"uv": [4, 10, 8, 10.5], "texture": "#0"},
+				"south": {"uv": [0, 10.5, 4, 11], "texture": "#0"},
+				"west": {"uv": [4, 10.5, 8, 11], "texture": "#0"},
+				"up": {"uv": [4, 10, 0, 6], "texture": "#0"},
+				"down": {"uv": [8, 6, 4, 10], "texture": "#0"}
+			}
+		},
+		{
+			"name": "StandTop",
+			"from": [4, 2, 4],
+			"to": [12, 13, 12],
+			"rotation": {"angle": 0, "axis": "y", "origin": [4, 2, 4]},
+			"faces": {
+				"north": {"uv": [8, 0, 10, 2.75], "texture": "#0"},
+				"east": {"uv": [8, 2.75, 10, 5.5], "texture": "#0"},
+				"south": {"uv": [8, 5.5, 10, 8.25], "texture": "#0"},
+				"west": {"uv": [8, 8.25, 10, 11], "texture": "#0"},
+				"up": {"uv": [3, 9, 1, 7], "texture": "#0"},
+				"down": {"uv": [7, 7, 5, 9], "texture": "#0"}
+			}
+		},
+		{
+			"name": "Display",
+			"from": [0, 10, 1],
+			"to": [16, 14, 17],
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [10, 10, 7]},
+			"faces": {
+				"north": {"uv": [0, 5, 4, 6], "texture": "#0"},
+				"east": {"uv": [0, 4, 4, 5], "texture": "#0"},
+				"south": {"uv": [4, 5, 8, 6], "texture": "#0"},
+				"west": {"uv": [4, 4, 8, 5], "texture": "#0"},
+				"up": {"uv": [4, 4, 0, 0], "texture": "#0"},
+				"down": {"uv": [8, 0, 4, 4], "texture": "#0"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "Base",
+			"origin": [8, 8, 8],
+			"scope": 0,
+			"color": 0,
+			"children": [
+				{
+					"name": "Stand",
+					"origin": [8, 8, 8],
+					"scope": 0,
+					"color": 0,
+					"children": [0, 1]
+				},
+				2
+			]
+		}
+	]
+}
