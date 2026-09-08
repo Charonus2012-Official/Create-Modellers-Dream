@@ -5,6 +5,7 @@ import net.charonus.modellers_dream.block.entity.ModBlockEntities;
 import net.charonus.modellers_dream.command.DispatchTestCommand;
 import net.charonus.modellers_dream.item.ModCreativeModeTabs;
 import net.charonus.modellers_dream.item.ModItems;
+import net.charonus.modellers_dream.screen.ModMenuTypes;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
@@ -47,12 +48,14 @@ public class ModellersDream {
 
         ModBlocks.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
 
 
         ModCreativeModeTabs.register(modEventBus);
         
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ModClientEvents::registerRenderers);
+            modEventBus.addListener(ModClientEvents::registerScreens);
         }
 
         // Register the item to a creative tab

@@ -1,5 +1,7 @@
 package net.charonus.modellers_dream;
 
+import net.charonus.modellers_dream.ponder.ModPonderPlugin;
+import net.createmod.ponder.foundation.PonderIndex;
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -21,7 +23,7 @@ public class ModellersDreamClient {
 
     @SubscribeEvent
     static void onClientSetup(FMLClientSetupEvent event) {
-
+        PonderIndex.addPlugin(new ModPonderPlugin());
 
         // Some client setup code
         ModellersDream.LOGGER.info("HELLO FROM CLIENT SETUP");

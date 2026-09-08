@@ -86,7 +86,7 @@ A mod that allows to control trains something like real life model trains
     ordering="NONE"
     side="BOTH"
 
-[[dependecies.${mod_id}]]
+[[dependencies.${mod_id}]]
     modId="create"
     type="required"
     versionRange="[6.0.10,6.1.0)"

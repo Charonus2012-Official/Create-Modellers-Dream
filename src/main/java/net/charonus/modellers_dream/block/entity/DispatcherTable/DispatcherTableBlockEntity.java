@@ -1,19 +1,27 @@
 package net.charonus.modellers_dream.block.entity.DispatcherTable;
 
 import net.charonus.modellers_dream.block.entity.ModBlockEntities;
+import net.charonus.modellers_dream.screen.custom.DispatcherTable.DispatcherMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public class DispatcherTableBlockEntity extends BlockEntity {
+public class DispatcherTableBlockEntity extends BlockEntity implements MenuProvider {
     private UUID networkId;
     private BlockPos linkedConnectorPos;
 
@@ -75,5 +83,15 @@ public class DispatcherTableBlockEntity extends BlockEntity {
         if (tag.contains("LinkedConnector")) {
             linkedConnectorPos = NbtUtils.readBlockPos(tag, "LinkedConnector").orElse(null);
         }
+    }
+
+    @Override
+    public @NotNull Component getDisplayName() {
+        return Component.literal("Dispatcher Table");
+    }
+
+    @Override
+    public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
+        return new DispatcherMenu(i, inventory, this);
     }
 }
