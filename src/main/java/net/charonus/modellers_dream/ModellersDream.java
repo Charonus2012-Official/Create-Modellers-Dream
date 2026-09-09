@@ -2,7 +2,7 @@ package net.charonus.modellers_dream;
 
 import net.charonus.modellers_dream.block.ModBlocks;
 import net.charonus.modellers_dream.block.entity.ModBlockEntities;
-import net.charonus.modellers_dream.command.DispatchTestCommand;
+import net.charonus.modellers_dream.command.DispatchCommand;
 import net.charonus.modellers_dream.item.ModCreativeModeTabs;
 import net.charonus.modellers_dream.item.ModItems;
 import net.charonus.modellers_dream.screen.ModMenuTypes;
@@ -91,6 +91,6 @@ public class ModellersDream {
 
     @SubscribeEvent
     public void onRegisterCommands(RegisterCommandsEvent event) {
-        DispatchTestCommand.register(event.getDispatcher());
+        DispatchCommand.register(event.getDispatcher());
     }
 }

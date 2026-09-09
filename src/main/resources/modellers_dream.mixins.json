@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "net.charonus.modellers_dream.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "ScheduleItemMixin",
+    "ScheduleRuntimeMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -79,12 +79,12 @@ public class TrackNetworkScenes {
         scene.overlay().showOutline(PonderPalette.BLUE, new Object(), connector, 60);
         scene.idle(10);
 
-        scene.overlay().showText(50)
+        scene.overlay().showText(80)
                 .pointAt(connectorVec)
                 .placeNearTarget()
                 .colored(PonderPalette.BLUE)
                 .text("Right-Click the Track Connector with the Dispatcher Table to connect to the network, then place it somewhere");
-        scene.idle(60);
+        scene.idle(90);
         scene.world().showSection(dispatcher, Direction.DOWN);
         scene.idle(70);
 
