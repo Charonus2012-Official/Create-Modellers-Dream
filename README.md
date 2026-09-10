@@ -1,1 +1,5 @@
-# Create: Modellers Dream
+<p align="center"><img src="./mod_listing/project_icons/VER_1.png" alt="Logo" width="512"></p>
+<h1 align="center">Create: Modellers Dream<br>
+    <a href="https://r.createmod.net/mr"><img src="https://img.shields.io/modrinth/dt/create-modellers-dream?style=for-the-badge&color=559d28&logo=modrinth&logoColor=black" alt="Modrinth"></a>
+    <br><br>
+</h1>

@@ -7,9 +7,12 @@ import net.charonus.modellers_dream.block.entity.DispatcherTable.DispatcherTable
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.ItemInteractionResult;
@@ -75,6 +78,12 @@ public class DispatcherTableBlock extends BaseEntityBlock implements IWrenchable
                     BlockPos connectorPos = NbtUtils.readBlockPos(tag, "LinkedConnector").orElse(null);
                     dispatcher.setLinkedConnectorPos(connectorPos);
                 }
+                if (tag.contains("LinkedConnectorDimension")) {
+                    ResourceLocation dimensionId = ResourceLocation.tryParse(tag.getString("LinkedConnectorDimension"));
+                    if (dimensionId != null) {
+                        dispatcher.setLinkedConnectorDimension(ResourceKey.create(Registries.DIMENSION, dimensionId));
+                    }
+                }
                 if (tag.hasUUID("NetworkId")) {
                     dispatcher.setNetworkId(tag.getUUID("NetworkId"));
                 }
@@ -101,6 +110,8 @@ public class DispatcherTableBlock extends BaseEntityBlock implements IWrenchable
     protected ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if (level.getBlockEntity(pos) instanceof DispatcherTableBlockEntity dispatcherTableBlockEntity) {
             if (!level.isClientSide()) {
+                dispatcherTableBlockEntity.refreshAvailableNetworkData();
+                dispatcherTableBlockEntity.logLinkedNetwork();
                 player.openMenu(dispatcherTableBlockEntity, pos);
             }
             return ItemInteractionResult.SUCCESS;
@@ -113,6 +124,8 @@ public class DispatcherTableBlock extends BaseEntityBlock implements IWrenchable
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
         if (level.getBlockEntity(pos) instanceof DispatcherTableBlockEntity dispatcherTableBlockEntity) {
             if (!level.isClientSide()) {
+                dispatcherTableBlockEntity.refreshAvailableNetworkData();
+                dispatcherTableBlockEntity.logLinkedNetwork();
                 player.openMenu(dispatcherTableBlockEntity, pos);
             }
             return InteractionResult.SUCCESS;

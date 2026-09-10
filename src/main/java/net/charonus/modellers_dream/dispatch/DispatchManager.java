@@ -13,6 +13,7 @@ import com.simibubi.create.content.trains.schedule.Schedule;
 import com.simibubi.create.content.trains.schedule.ScheduleEntry;
 import com.simibubi.create.content.trains.schedule.ScheduleRuntime;
 import com.simibubi.create.content.trains.schedule.condition.ScheduleWaitCondition;
+import com.simibubi.create.content.trains.schedule.condition.ScheduledDelay;
 import com.simibubi.create.content.trains.schedule.destination.DestinationInstruction;
 
 /**
@@ -159,8 +160,10 @@ public final class DispatchManager {
         DestinationInstruction destination = new DestinationInstruction();
         destination.getData().putString("Text", stationName);
 
+        ScheduledDelay delay = new ScheduledDelay();
+
         List<List<ScheduleWaitCondition>> conditions = new ArrayList<>();
-        conditions.add(new ArrayList<>()); // one empty column = passes instantly, no artificial wait
+        conditions.add(new ArrayList<>(List.of(delay))); // one empty column = passes instantly, no artificial wait
         return new ScheduleEntry(destination, conditions);
     }
 }

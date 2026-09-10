@@ -45,6 +45,7 @@ public class DispatcherTableBlockItem extends BlockItem {
 
             CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
             tag.put("LinkedConnector", NbtUtils.writeBlockPos(pos));
+            tag.putString("LinkedConnectorDimension", level.dimension().location().toString());
             tag.putUUID("NetworkId", connector.getNetworkId());
             stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
 
@@ -56,7 +57,8 @@ public class DispatcherTableBlockItem extends BlockItem {
 
         // Check for network data before allowing placement
         CustomData data = stack.get(DataComponents.CUSTOM_DATA);
-        if (data == null || !data.copyTag().hasUUID("NetworkId")) {
+        if (data == null || !data.copyTag().hasUUID("NetworkId")
+                || !data.copyTag().contains("LinkedConnectorDimension")) {
             if (level.isClientSide && player != null) {
                 player.displayClientMessage(Component.translatable("modellers_dream.dispatcher_table.missing_link").withStyle(ChatFormatting.RED), true);
             }
