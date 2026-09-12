@@ -4,9 +4,12 @@ import net.charonus.modellers_dream.block.entity.TrackConnector.TrackConnectorBl
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -18,6 +21,8 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
 public class DispatcherTableBlockItem extends BlockItem {
     public DispatcherTableBlockItem(Block block, Properties properties) {
@@ -66,6 +71,39 @@ public class DispatcherTableBlockItem extends BlockItem {
         }
 
         return super.useOn(context);
+    }
+
+    @Override
+    protected boolean updateCustomBlockEntityTag(BlockPos pos, Level level, @Nullable Player player, ItemStack stack, BlockState state) {
+        boolean updated = super.updateCustomBlockEntityTag(pos, level, player, stack, state);
+
+        if (level.isClientSide) return updated;
+
+        CustomData data = stack.get(DataComponents.CUSTOM_DATA);
+        if (data == null) return updated;
+
+        CompoundTag tag = data.copyTag();
+        if (!tag.hasUUID("NetworkId") || !tag.contains("LinkedConnectorDimension") || !tag.contains("LinkedConnector")) {
+            return updated;
+        }
+
+        if (!(level.getBlockEntity(pos) instanceof net.charonus.modellers_dream.block.entity.DispatcherTable.DispatcherTableBlockEntity dispatcher)) {
+            return updated;
+        }
+
+        BlockPos connectorPos = NbtUtils.readBlockPos(tag, "LinkedConnector").orElse(null);
+        ResourceLocation dimId = ResourceLocation.tryParse(tag.getString("LinkedConnectorDimension"));
+
+        if (connectorPos == null || dimId == null) {
+            return updated;
+        }
+
+        dispatcher.setLinkedConnectorPos(connectorPos);
+        dispatcher.setLinkedConnectorDimension(ResourceKey.create(Registries.DIMENSION, dimId));
+        dispatcher.setNetworkId(tag.getUUID("NetworkId"));
+        dispatcher.refreshAvailableNetworkData();
+
+        return true;
     }
 
     @Override

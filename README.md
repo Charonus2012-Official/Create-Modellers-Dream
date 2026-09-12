@@ -1,7 +1,7 @@
 # Create: Modellers Dream
 
 <p align="center">
-  <img src="./mod_listing/project_icons/VER_2.png" alt="Logo" width="512">
+  <img src="src/main/resources/VER_2.png" alt="Logo" width="512">
 </p>
 
 <p align="center">
