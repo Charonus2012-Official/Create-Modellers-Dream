@@ -3,10 +3,12 @@ package net.charonus.modellers_dream;
 import net.charonus.modellers_dream.block.ModBlocks;
 import net.charonus.modellers_dream.block.entity.ModBlockEntities;
 import net.charonus.modellers_dream.command.DispatchCommand;
+import net.charonus.modellers_dream.compat.computercraft.CCCompatRegistry;
 import net.charonus.modellers_dream.item.ModCreativeModeTabs;
 import net.charonus.modellers_dream.item.ModItems;
 import net.charonus.modellers_dream.screen.ModMenuTypes;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import org.slf4j.Logger;
@@ -52,7 +54,11 @@ public class ModellersDream {
 
 
         ModCreativeModeTabs.register(modEventBus);
-        
+
+        if (ModList.get().isLoaded("computercraft")) {
+            CCCompatRegistry.register(modEventBus);
+        }
+
         if (FMLEnvironment.dist == Dist.CLIENT) {
             modEventBus.addListener(ModClientEvents::registerRenderers);
             modEventBus.addListener(ModClientEvents::registerScreens);

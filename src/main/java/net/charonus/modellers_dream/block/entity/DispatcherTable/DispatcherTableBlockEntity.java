@@ -131,6 +131,12 @@ public class DispatcherTableBlockEntity extends BlockEntity implements MenuProvi
         }
 
         ServerLevel connectorLevel = tableLevel.getServer().getLevel(linkedConnectorDimension);
+        BlockState stateAtPos = connectorLevel.getBlockState(linkedConnectorPos);
+        BlockEntity actualBE = connectorLevel.getBlockEntity(linkedConnectorPos);
+        ModellersDream.LOGGER.info("At {}: block={}, blockEntity={}",
+                linkedConnectorPos, stateAtPos.getBlock(), actualBE);
+
+
         if (connectorLevel == null) {
             ModellersDream.LOGGER.info("Dispatcher Table at {} cannot find linked dimension {}", worldPosition,
                     linkedConnectorDimension.location());
