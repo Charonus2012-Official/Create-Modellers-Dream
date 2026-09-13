@@ -10,6 +10,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,8 +26,8 @@ public class TrackConnectorBlockEntity extends BlockEntity {
     private boolean targetDirection;
     private UUID networkId;
 
-    public TrackConnectorBlockEntity(BlockPos pos, BlockState blockState) {
-        super(ModBlockEntities.TRACK_CONNECTOR_BE.get(), pos, blockState);
+    public TrackConnectorBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
+        super(type, pos, blockState);
     }
 
     @Override

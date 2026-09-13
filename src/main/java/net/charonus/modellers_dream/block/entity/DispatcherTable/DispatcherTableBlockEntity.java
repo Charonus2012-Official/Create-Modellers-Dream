@@ -22,6 +22,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -37,8 +38,8 @@ public class DispatcherTableBlockEntity extends BlockEntity implements MenuProvi
     private List<String> availableTrains = List.of();
     private List<String> availableStations = List.of();
 
-    public DispatcherTableBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.DISPATCHER_TABLE_BE.get(), pos, state);
+    public DispatcherTableBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
 
     public void setNetworkId(UUID networkId) {

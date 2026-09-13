@@ -1,5 +1,6 @@
 package net.charonus.modellers_dream;
 
+import com.tterrag.registrate.Registrate;
 import net.charonus.modellers_dream.block.ModBlocks;
 import net.charonus.modellers_dream.block.entity.ModBlockEntities;
 import net.charonus.modellers_dream.command.DispatchCommand;
@@ -27,10 +28,12 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
-// The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(ModellersDream.MOD_ID)
 public class ModellersDream {
     public static final String MOD_ID = "modellers_dream";
+
+    public static final Registrate REGISTRATE = Registrate.create(MOD_ID)
+            .defaultCreativeTab(ModCreativeModeTabs.MODELLERS_DREAM_TAB_KEY);
 
     public static final Logger LOGGER = LogUtils.getLogger();
 
@@ -45,12 +48,15 @@ public class ModellersDream {
         NeoForge.EVENT_BUS.register(this);
 
 
-        ModItems.register(modEventBus);
+        new LangProvider();
 
 
-        ModBlocks.register(modEventBus);
-        ModBlockEntities.register(modEventBus);
-        ModMenuTypes.register(modEventBus);
+        ModBlocks.register();
+        ModItems.register();
+
+
+        ModBlockEntities.register();
+        ModMenuTypes.register();
 
 
         ModCreativeModeTabs.register(modEventBus);
@@ -60,8 +66,6 @@ public class ModellersDream {
         }
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
-            modEventBus.addListener(ModClientEvents::registerRenderers);
-            modEventBus.addListener(ModClientEvents::registerScreens);
         }
 
         // Register the item to a creative tab

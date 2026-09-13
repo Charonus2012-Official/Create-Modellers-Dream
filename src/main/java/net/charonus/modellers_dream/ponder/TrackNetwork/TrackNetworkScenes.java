@@ -48,7 +48,7 @@ public class TrackNetworkScenes {
         AABB bb = new AABB(target, target).move(0, 2 / 16f, 0);
 
         scene.overlay().showControls(target, Pointing.DOWN, 40).rightClick()
-                        .withItem(ModBlocks.TRACK_CONNECTOR.toStack());
+                        .withItem(ModBlocks.TRACK_CONNECTOR.asStack());
         scene.idle(6);
 		scene.overlay().chaseBoundingBoxOutline(PonderPalette.GREEN, bb, bb, 1);
 		scene.overlay().chaseBoundingBoxOutline(PonderPalette.GREEN, bb, bb.inflate(.45f, 1 / 16f, .45f), 60);
@@ -74,7 +74,7 @@ public class TrackNetworkScenes {
         scene.idle(30);
 
         scene.overlay().showControls(connectorVec, Pointing.DOWN, 40).rightClick()
-                .withItem(ModBlocks.DISPATCHER_TABLE.toStack());
+                .withItem(ModBlocks.DISPATCHER_TABLE.asStack());
         scene.idle(6);
         scene.overlay().showOutline(PonderPalette.BLUE, new Object(), connector, 60);
         scene.idle(10);

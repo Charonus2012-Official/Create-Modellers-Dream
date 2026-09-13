@@ -126,6 +126,8 @@ configurations {
 }
 
 dependencies {
+    jarJar(api("com.tterrag.registrate:Registrate:$registrate_version"))
+
     jarJar(api("net.createmod.ponder:ponder-neoforge:$ponder_version+mc$minecraft_version") {
         version {
             strictly "[$ponder_version+mc$minecraft_version,)"

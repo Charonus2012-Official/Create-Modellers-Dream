@@ -1,0 +1,20 @@
+{
+  "block.modellers_dream.dispatcher_table": "Dispatcher Table",
+  "block.modellers_dream.track_connector": "Track Connector",
+  "creativetab.modellers_dream.modellers_dream_tab": "Create: Modellers Dream",
+  "item.modellers_dream.incomplete_track_communicator": "Incomplete Track Communicator",
+  "item.modellers_dream.track_communicator": "Track Communicator",
+  "modellers_dream.dispatcher_table.cleared": "Track Network cleared.",
+  "modellers_dream.dispatcher_table.linked": "Linked to Track Network.",
+  "modellers_dream.dispatcher_table.missing_link": "Link a Track Connector first.",
+  "modellers_dream.ponder.track_network_setup.header": "Setting up the Track Network",
+  "modellers_dream.ponder.track_network_setup.text_1": "Select a Train Track and place the Connector nearby",
+  "modellers_dream.ponder.track_network_setup.text_2": "Now we need to add a Dispatcher Table",
+  "modellers_dream.ponder.track_network_setup.text_3": "Right-Click the Track Connector with the Dispatcher Table to connect to the network, then place it somewhere",
+  "modellers_dream.ponder.track_network_setup.text_4": "Right-Click to open the Dispatcher Table GUI and go dispatch some trains!",
+  "modellers_dream.ponder.track_network_setup.text_5": "To dispatch trains you also need to put an empty train schedule to the driver!",
+  "modellers_dream.track_connector.clear": "Selection cleared.",
+  "modellers_dream.track_connector.missing": "Select a track first.",
+  "modellers_dream.track_connector.occupied": "That rail block is already occupied.",
+  "modellers_dream.track_connector.set": "Position set. Right-click a block to place."
+}

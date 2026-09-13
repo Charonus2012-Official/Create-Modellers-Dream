@@ -10,6 +10,8 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
+import static net.charonus.modellers_dream.block.entity.ModBlockEntities.TRACK_CONNECTOR_BE;
+
 public class TrackConnectorBlock extends BaseEntityBlock {
     public static final MapCodec<TrackConnectorBlock> CODEC = simpleCodec(TrackConnectorBlock::new);
 
@@ -30,7 +32,7 @@ public class TrackConnectorBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new TrackConnectorBlockEntity(blockPos, blockState);
+        return new TrackConnectorBlockEntity(TRACK_CONNECTOR_BE.get(), blockPos, blockState);
     }
 
     @Override

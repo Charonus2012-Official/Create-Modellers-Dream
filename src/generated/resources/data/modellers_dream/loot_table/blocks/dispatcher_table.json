@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "modellers_dream:dispatcher_table"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "modellers_dream:blocks/dispatcher_table"
+}

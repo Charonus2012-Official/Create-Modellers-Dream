@@ -42,6 +42,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+import static net.charonus.modellers_dream.block.entity.ModBlockEntities.DISPATCHER_TABLE_BE;
+
 public class DispatcherTableBlock extends BaseEntityBlock implements IWrenchable {
     public static final MapCodec<DispatcherTableBlock> CODEC = simpleCodec(DispatcherTableBlock::new);
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -63,7 +65,7 @@ public class DispatcherTableBlock extends BaseEntityBlock implements IWrenchable
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new DispatcherTableBlockEntity(pos, state);
+        return new DispatcherTableBlockEntity(DISPATCHER_TABLE_BE.get(), pos, state);
     }
 
     @Override

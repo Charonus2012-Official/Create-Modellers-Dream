@@ -1,66 +1,41 @@
 package net.charonus.modellers_dream.block;
 
+import com.simibubi.create.foundation.data.SharedProperties;
+import com.tterrag.registrate.util.entry.BlockEntry;
+import com.tterrag.registrate.util.nullness.NonNullBiConsumer;
 import net.charonus.modellers_dream.ModellersDream;
 import net.charonus.modellers_dream.block.custom.DispatcherTable.DispatcherTableBlock;
 import net.charonus.modellers_dream.block.custom.TrackConnector.TrackConnectorBlock;
-import net.charonus.modellers_dream.item.ModItems;
 import net.charonus.modellers_dream.item.custom.DispatcherTableBlockItem;
 import net.charonus.modellers_dream.item.custom.TrackConnectorBlockItem;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
-import java.util.function.BiFunction;
-import java.util.function.Supplier;
+import static com.simibubi.create.foundation.data.TagGen.axeOrPickaxe;
+import static com.simibubi.create.foundation.data.TagGen.pickaxeOnly;
 
 public class ModBlocks {
-    public static final DeferredRegister.Blocks BLOCKS =
-        DeferredRegister.createBlocks(ModellersDream.MOD_ID);
 
-    // public static final DeferredBlock<Block> BLOCK = registerBlock("block_id",
-    //         () -> new Block(BlockBehaviour.Properties.of()
-    //                 .strength(4f).requiresCorrectToolForDrops().sound(SoundType.AMETHYST)));
+    public static final BlockEntry<DispatcherTableBlock> DISPATCHER_TABLE= ModellersDream.REGISTRATE
+            .block("dispatcher_table", DispatcherTableBlock::new)
+            .initialProperties(SharedProperties::stone)
+            .properties(p -> p.mapColor(MapColor.TERRACOTTA_BROWN).noOcclusion().sound(SoundType.WOOD))
+            .blockstate(NonNullBiConsumer.noop())
+            .transform(axeOrPickaxe())
+            .item(DispatcherTableBlockItem::new)
+            .build()
+            .register();
 
-    public static final DeferredBlock<Block> DISPATCHER_TABLE = registerBlock("dispatcher_table",
-            () -> new DispatcherTableBlock(BlockBehaviour.Properties.of().noOcclusion().mapColor(MapColor.TERRACOTTA_BROWN).sound(SoundType.WOOD)),
-            DispatcherTableBlockItem::new);
+    public static final BlockEntry<TrackConnectorBlock> TRACK_CONNECTOR = ModellersDream.REGISTRATE
+            .block("track_connector", TrackConnectorBlock::new)
+            .initialProperties(SharedProperties::softMetal)
+            .properties(p -> p.mapColor(MapColor.PODZOL).noOcclusion().sound(SoundType.NETHERITE_BLOCK))
+            .blockstate(NonNullBiConsumer.noop())
+            .transform(pickaxeOnly())
+            .item(TrackConnectorBlockItem::new)
+            .build()
+            .register();
 
-    public static final DeferredBlock<Block> TRACK_CONNECTOR = registerBlock("track_connector",
-            () -> new TrackConnectorBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.GOLD_BLOCK)
-                    .mapColor(MapColor.PODZOL)
-                    .noOcclusion()
-                    .sound(SoundType.NETHERITE_BLOCK))
-    , TrackConnectorBlockItem::new);
-
-    private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
-        DeferredBlock<T> toReturn = BLOCKS.register(name, block);
-        registerBlockItem(name, toReturn);
-        return toReturn;
-    }
-
-    private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block, BiFunction<Block, Item.Properties, ? extends BlockItem> blockItem) {
-        DeferredBlock<T> toReturn = BLOCKS.register(name, block);
-        registerBlockItem(name, toReturn, blockItem);
-        return toReturn;
-    }
-
-    private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block) {
-        ModItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
-    }
-
-    private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block,
-                                                             BiFunction<Block, Item.Properties, ? extends BlockItem> itemFactory) {
-        ModItems.ITEMS.register(name, () -> itemFactory.apply(block.get(), new Item.Properties()));
-    }
-
-    public static void register(IEventBus eventBus) {
-        BLOCKS.register(eventBus);
-    }
+    public static void register() {}
 }
