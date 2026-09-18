@@ -6,7 +6,10 @@
 
 <p align="center">
   <a href="https://modrinth.com/mod/create-modellers-dream">
-    <img src="https://img.shields.io/modrinth/dt/create-modellers-dream?style=for-the-badge&color=559d28&logo=modrinth&logoColor=black" alt="Modrinth">
+    <img src="https://img.shields.io/modrinth/dt/create-modellers-dream?logo=modrinth&label=&suffix=%20&style=flat&color=242629&labelColor=5CA424&logoColor=1C1C1C" alt="Modrinth">
+  </a>
+  <a href="https://idk">
+    <img src="https://img.shields.io/curseforge/dt/1693298?logo=curseforge&label=&suffix=%20&style=flat&color=242629&labelColor=F16436&logoColor=1C1C1C" alt="CurseForge">
   </a>
 </p>
 
