@@ -89,17 +89,27 @@ public class DispatcherMenu extends AbstractContainerMenu {
         }
 
         String station = blockEntity.getAvailableStations().get(selectedStation);
+
+        if (buttonId == DIRECT_BUTTON) {
+            DispatchManager.setDestination(train, station);
+        } else {
+            if (!DispatchManager.appendDestination(train, station)) {
+                player.displayClientMessage(
+                        Component.literal("Train '" + train.name.getString() + "' has too many stations queued")
+                                .withStyle(ChatFormatting.RED),
+                        false
+                );
+                return false;
+            }
+        }
+
         player.displayClientMessage(
                 Component.literal("Dispatching '" + train.name.getString() + "' to '" + station + "'")
                         .withStyle(ChatFormatting.GREEN),
                 false
         );
 
-        if (buttonId == DIRECT_BUTTON) {
-            DispatchManager.setDestination(train, station);
-        } else {
-            DispatchManager.appendDestination(train, station);
-        }
+
         return true;
     }
 

@@ -15,6 +15,7 @@ import com.simibubi.create.content.trains.schedule.ScheduleRuntime;
 import com.simibubi.create.content.trains.schedule.condition.ScheduleWaitCondition;
 import com.simibubi.create.content.trains.schedule.condition.ScheduledDelay;
 import com.simibubi.create.content.trains.schedule.destination.DestinationInstruction;
+import net.charonus.modellers_dream.Config;
 
 /**
  * Owns every train's Modellers Dream dispatch queue and is the only place that
@@ -133,17 +134,21 @@ public final class DispatchManager {
      * finished schedule's entry list in place would replay its old stops,
      * since currentEntry gets zeroed once a non-cyclic schedule completes.
      */
-    public static void appendDestination(Train train, String stationName) {
+    public static boolean appendDestination(Train train, String stationName) {
         if (!hasActiveSchedule(train)) {
             setDestination(train, stationName);
-            return;
+            return true;
+        }
+
+        List<String> queue = pendingStations.getOrDefault(train.id, List.of());
+        if (queue.size() >= Config.MAX_PENDING_STATIONS.get()) {
+            return false;
         }
 
         train.runtime.schedule.entries.add(buildEntry(stationName));
-        train.runtime.predictionTicks.add(-1); // TBD sentinel - keeps predictionTicks in lockstep with entries,
-        // or ScheduleRuntime.predictForEntry() index-out-of-bounds crashes
-        // on the very next tick (this is what crashed your server)
+        train.runtime.predictionTicks.add(-1);
         pendingStations.computeIfAbsent(train.id, id -> new ArrayList<>()).add(stationName);
+        return true;
     }
 
     public static void clear(Train train) {
