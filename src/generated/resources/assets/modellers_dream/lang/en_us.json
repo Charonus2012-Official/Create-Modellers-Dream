@@ -4,6 +4,8 @@
   "creativetab.modellers_dream.modellers_dream_tab": "Create: Modellers Dream",
   "item.modellers_dream.incomplete_track_communicator": "Incomplete Track Communicator",
   "item.modellers_dream.track_communicator": "Track Communicator",
+  "modellers_dream.configuration.dispatcher": "Dispatcher Behaviour Limits",
+  "modellers_dream.configuration.max_pending_stations": "Max Pending Stations",
   "modellers_dream.dispatcher_table.cleared": "Track Network cleared.",
   "modellers_dream.dispatcher_table.linked": "Linked to Track Network.",
   "modellers_dream.dispatcher_table.missing_link": "Link a Track Connector first.",

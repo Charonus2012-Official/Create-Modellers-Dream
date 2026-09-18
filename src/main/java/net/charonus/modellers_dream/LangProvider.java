@@ -7,6 +7,11 @@ public class LangProvider {
         // Set the Creative Mode Tab
         REGISTRATE.addRawLang("creativetab.modellers_dream.modellers_dream_tab", "Create: Modellers Dream");
 
+        // Config
+        SpecialLang CFG = new SpecialLang(ModellersDream.MOD_ID + ".configuration");
+        CFG.addKey("dispatcher", "Dispatcher Behaviour Limits");
+        CFG.addKey("max_pending_stations", "Max Pending Stations");
+
         // Network Setup Ponder
         PonderLang ponderLang = new PonderLang(ModellersDream.MOD_ID + ".ponder.track_network_setup");
         ponderLang.setHeader("Setting up the Track Network");

@@ -87,9 +87,7 @@ public class DispatcherPeripheral implements IPeripheral {
             return false;
         }
 
-        DispatchManager.appendDestination(train.train, station.name);
-
-        return true;
+        return DispatchManager.appendDestination(train.train, station.name);
     }
 
 
