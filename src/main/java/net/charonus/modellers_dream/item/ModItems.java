@@ -3,6 +3,9 @@ package net.charonus.modellers_dream.item;
 import com.simibubi.create.content.processing.sequenced.SequencedAssemblyItem;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.charonus.modellers_dream.ModellersDream;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
 public class ModItems {
@@ -19,7 +22,8 @@ public class ModItems {
 
     private static ItemEntry<SequencedAssemblyItem> sequencedIngredient(String name) {
 		return ModellersDream.REGISTRATE.item(name, SequencedAssemblyItem::new)
-			.register();
+				.removeTab(ModCreativeModeTabs.MODELLERS_DREAM_TAB_KEY)
+				.register();
 	}
 
     public static void register() {}

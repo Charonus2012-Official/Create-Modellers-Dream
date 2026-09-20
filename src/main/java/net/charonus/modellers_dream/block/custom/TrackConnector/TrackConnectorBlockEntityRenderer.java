@@ -10,6 +10,8 @@ import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction.AxisDirection;
+import net.minecraft.world.phys.AABB;
+import org.jetbrains.annotations.NotNull;
 
 public class TrackConnectorBlockEntityRenderer implements BlockEntityRenderer<TrackConnectorBlockEntity> {
     public TrackConnectorBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
@@ -30,5 +32,16 @@ public class TrackConnectorBlockEntityRenderer implements BlockEntityRenderer<Tr
         TrackTargetingBehaviour.render(be.getLevel(), target, direction, null, ms, buffer, light,
                 OverlayTexture.NO_OVERLAY, RenderedTrackOverlayType.OBSERVER, 1 + 1 / 16f);
         ms.popPose();
+    }
+
+    @Override
+    @NotNull
+    public AABB getRenderBoundingBox(@NotNull TrackConnectorBlockEntity blockEntity) {
+        BlockPos target = blockEntity.getTargetTrack();
+        if (target == null) {
+            return BlockEntityRenderer.super.getRenderBoundingBox(blockEntity);
+        }
+
+        return new AABB(target).inflate(1);
     }
 }

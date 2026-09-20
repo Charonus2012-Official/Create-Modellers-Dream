@@ -91,6 +91,7 @@ public class TrackNetworkScenes {
         scene.overlay().showControls(dispatcherVec, Pointing.DOWN, 50).rightClick();
         scene.idle(10);
         scene.overlay().showText(50)
+                .attachKeyFrame()
                 .text("Right-Click to open the Dispatcher Table GUI and go dispatch some trains!")
                 .pointAt(dispatcherVec)
                 .placeNearTarget()

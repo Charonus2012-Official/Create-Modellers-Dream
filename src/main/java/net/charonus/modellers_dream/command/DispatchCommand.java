@@ -6,12 +6,15 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.simibubi.create.content.trains.entity.Train;
 
 import net.charonus.modellers_dream.dispatch.DispatchManager;
+import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 
 /**
  * /dispatch list [<trainName>]   - all trains, or one train's pending stations
@@ -43,6 +46,8 @@ public class DispatchCommand {
                         .then(Commands.literal("clear")
                                 .then(Commands.argument("trainName", StringArgumentType.string())
                                         .executes(DispatchCommand::clearSchedule)))
+                        .then(Commands.literal("help")
+                                .executes(DispatchCommand::help))
         );
     }
 
@@ -147,6 +152,22 @@ public class DispatchCommand {
         DispatchManager.clear(train);
         source.sendSuccess(() -> Component.literal("Cleared schedule of '" + trainName + "'"), true);
 
+        return 1;
+    }
+
+    private static int help(CommandContext<CommandSourceStack> ctx) throws CommandSyntaxException {
+        ServerPlayer player = ctx.getSource().getPlayerOrException();
+        player.displayClientMessage(Component.literal("=== Dispatch Commands ===").withStyle(ChatFormatting.GOLD), false);
+        player.displayClientMessage(Component.literal("/dispatch help").withStyle(ChatFormatting.GRAY), false);
+        player.displayClientMessage(Component.literal("  Shows this message"), false);
+        player.displayClientMessage(Component.literal("/dispatch list").withStyle(ChatFormatting.GRAY), false);
+        player.displayClientMessage(Component.literal("  Lists all trains and their statuses"), false);
+        player.displayClientMessage(Component.literal("/dispatch set <trainName> <station>").withStyle(ChatFormatting.GRAY), false);
+        player.displayClientMessage(Component.literal("  Send selected train to station"), false);
+        player.displayClientMessage(Component.literal("/dispatch append <trainName> <station>").withStyle(ChatFormatting.GRAY), false);
+        player.displayClientMessage(Component.literal("  Add station to selected train's schedule"), false);
+        player.displayClientMessage(Component.literal("/dispatch clear <trainName>").withStyle(ChatFormatting.GRAY), false);
+        player.displayClientMessage(Component.literal("  Clear a schedule of selected train"), false);
         return 1;
     }
 }
