@@ -60,7 +60,7 @@ public class DispatcherPeripheral implements IPeripheral {
     }
 
     @LuaFunction(mainThread = true)
-    public final boolean appendRoute(String trainName, String stationName) {
+    public final boolean appendRoute(String trainName, String stationName, int waitTime) {
         dispatcher.logLinkedNetwork();
         var network = dispatcher.queryLinkedNetwork();
 
@@ -87,12 +87,12 @@ public class DispatcherPeripheral implements IPeripheral {
             return false;
         }
 
-        return DispatchManager.appendDestination(train.train, station.name);
+        return DispatchManager.appendDestination(train.train, station.name, waitTime);
     }
 
 
     @LuaFunction(mainThread = true)
-    public final boolean directRoute(String trainName, String stationName) {
+    public final boolean directRoute(String trainName, String stationName, int waitTime) {
         dispatcher.logLinkedNetwork();
         var network = dispatcher.queryLinkedNetwork();
 
@@ -119,7 +119,7 @@ public class DispatcherPeripheral implements IPeripheral {
             return false;
         }
 
-        DispatchManager.setDestination(train.train, station.name);
+        DispatchManager.setDestination(train.train, station.name, waitTime);
 
         return true;
     }

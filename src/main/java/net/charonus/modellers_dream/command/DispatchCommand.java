@@ -92,7 +92,7 @@ public class DispatchCommand {
     }
 
     private interface DispatchOp {
-        void apply(Train train, String stationName);
+        void apply(Train train, String stationName, int waitTicks);
     }
 
     private static int dispatchAction(CommandContext<CommandSourceStack> ctx, DispatchOp op) {
@@ -121,7 +121,7 @@ public class DispatchCommand {
             return 0;
         }
 
-        op.apply(train, stationName);
+        op.apply(train, stationName, 100);
 
         source.sendSuccess(() -> Component.literal(
                 "'" + trainName + "' -> '" + stationName + "'."), true);

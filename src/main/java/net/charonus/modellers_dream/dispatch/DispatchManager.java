@@ -14,6 +14,7 @@ import com.simibubi.create.content.trains.schedule.ScheduleEntry;
 import com.simibubi.create.content.trains.schedule.ScheduleRuntime;
 import com.simibubi.create.content.trains.schedule.condition.ScheduleWaitCondition;
 import com.simibubi.create.content.trains.schedule.condition.ScheduledDelay;
+import com.simibubi.create.content.trains.schedule.condition.TimedWaitCondition;
 import com.simibubi.create.content.trains.schedule.destination.DestinationInstruction;
 import net.charonus.modellers_dream.Config;
 
@@ -118,8 +119,8 @@ public final class DispatchManager {
     // ---------------------------------------------------------------
 
     /** Wipes any existing schedule and dispatches the train to a single station. */
-    public static void setDestination(Train train, String stationName) {
-        Schedule schedule = new Schedule(new ArrayList<>(List.of(buildEntry(stationName))), false, 0);
+    public static void setDestination(Train train, String stationName, int waitTicks) {
+        Schedule schedule = new Schedule(new ArrayList<>(List.of(buildEntry(stationName, waitTicks))), false, 0);
         train.runtime.setSchedule(schedule, false);
 
         List<String> queue = new ArrayList<>();
@@ -134,9 +135,9 @@ public final class DispatchManager {
      * finished schedule's entry list in place would replay its old stops,
      * since currentEntry gets zeroed once a non-cyclic schedule completes.
      */
-    public static boolean appendDestination(Train train, String stationName) {
+    public static boolean appendDestination(Train train, String stationName, int waitTicks) {
         if (!hasActiveSchedule(train)) {
-            setDestination(train, stationName);
+            setDestination(train, stationName, waitTicks);
             return true;
         }
 
@@ -145,7 +146,7 @@ public final class DispatchManager {
             return false;
         }
 
-        train.runtime.schedule.entries.add(buildEntry(stationName));
+        train.runtime.schedule.entries.add(buildEntry(stationName, waitTicks));
         train.runtime.predictionTicks.add(-1);
         pendingStations.computeIfAbsent(train.id, id -> new ArrayList<>()).add(stationName);
         return true;
@@ -161,11 +162,14 @@ public final class DispatchManager {
         pendingStations.remove(train.id);
     }
 
-    private static ScheduleEntry buildEntry(String stationName) {
+    private static ScheduleEntry buildEntry(String stationName, int waitTicks) {
         DestinationInstruction destination = new DestinationInstruction();
         destination.getData().putString("Text", stationName);
 
         ScheduledDelay delay = new ScheduledDelay();
+        delay.getData().putInt("Value", waitTicks);
+        delay.getData().putInt("TimeUnit", TimedWaitCondition.TimeUnit.TICKS.ordinal());
+
 
         List<List<ScheduleWaitCondition>> conditions = new ArrayList<>();
         conditions.add(new ArrayList<>(List.of(delay))); // one empty column = passes instantly, no artificial wait

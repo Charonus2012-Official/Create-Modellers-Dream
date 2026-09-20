@@ -7,11 +7,15 @@ import net.charonus.modellers_dream.command.DispatchCommand;
 import net.charonus.modellers_dream.compat.computercraft.CCCompatRegistry;
 import net.charonus.modellers_dream.item.ModCreativeModeTabs;
 import net.charonus.modellers_dream.item.ModItems;
+import net.charonus.modellers_dream.network.DispatchDelayPacketHandler;
+import net.charonus.modellers_dream.network.SetDispatchDelayPacket;
 import net.charonus.modellers_dream.screen.ModMenuTypes;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -41,6 +45,7 @@ public class ModellersDream {
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     public ModellersDream(IEventBus modEventBus, ModContainer modContainer) {
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::registerPayloads);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (ExampleMod) to respond directly to events.
@@ -78,6 +83,11 @@ public class ModellersDream {
     private void commonSetup(FMLCommonSetupEvent event) {
         // Some common setup code
         LOGGER.info("HELLO FROM COMMON SETUP");
+    }
+
+    private void registerPayloads(final RegisterPayloadHandlersEvent event) {
+        final PayloadRegistrar registrar = event.registrar("1");
+        registrar.playToServer(SetDispatchDelayPacket.TYPE, SetDispatchDelayPacket.STREAM_CODEC, DispatchDelayPacketHandler::handle);
     }
 
     // Add the example block item to the building blocks tab

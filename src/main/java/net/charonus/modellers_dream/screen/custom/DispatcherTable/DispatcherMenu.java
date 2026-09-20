@@ -22,10 +22,24 @@ public class DispatcherMenu extends AbstractContainerMenu {
     public static final int STATION_BUTTON_BASE = 1000;
     public static final int DIRECT_BUTTON = 2000;
     public static final int APPEND_BUTTON = 2001;
+    // Delay no longer rides clickMenuButton's buttonId (see SetDispatchDelayPacket) -
+    // that field is a legacy fixed-width one and isn't safe for an arbitrary tick count.
+    public static final int MAX_DELAY_TICKS = 72000; // 60 minute cap - adjust if stations need longer holds
+    public static final int DEFAULT_DELAY_TICKS = 100;
     public final DispatcherTableBlockEntity blockEntity;
     private final Level level;
     private int selectedTrain = -1;
     private int selectedStation = -1;
+    private int delayTicks = DEFAULT_DELAY_TICKS;
+
+    public int getDelayTicks() {
+        return delayTicks;
+    }
+
+    /** Called by DispatchDelayPacketHandler; never trust the client value without clamping. */
+    public void setDelayTicks(int ticks) {
+        this.delayTicks = Math.clamp(ticks, 0, MAX_DELAY_TICKS);
+    }
 
     public DispatcherMenu(int containerId, Inventory inv, FriendlyByteBuf extraData) {
         this(containerId, inv, inv.player.level().getBlockEntity(extraData.readBlockPos()));
@@ -82,7 +96,7 @@ public class DispatcherMenu extends AbstractContainerMenu {
         if (!DispatchManager.hasSchedule(train)) {
             player.displayClientMessage(
                     Component.literal("Train '" + train.name.getString()
-                            + "' has no schedule. Give the conductor a train schedule first.")
+                                    + "' has no schedule. Give the conductor a train schedule first.")
                             .withStyle(ChatFormatting.RED),
                     false);
             return false;
@@ -91,9 +105,9 @@ public class DispatcherMenu extends AbstractContainerMenu {
         String station = blockEntity.getAvailableStations().get(selectedStation);
 
         if (buttonId == DIRECT_BUTTON) {
-            DispatchManager.setDestination(train, station);
+            DispatchManager.setDestination(train, station, delayTicks);
         } else {
-            if (!DispatchManager.appendDestination(train, station)) {
+            if (!DispatchManager.appendDestination(train, station, delayTicks)) {
                 player.displayClientMessage(
                         Component.literal("Train '" + train.name.getString() + "' has too many stations queued")
                                 .withStyle(ChatFormatting.RED),
