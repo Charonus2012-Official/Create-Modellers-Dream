@@ -1,5 +1,7 @@
 package net.charonus.modellers_dream;
 
+import net.createmod.ponder.Ponder;
+
 import static net.charonus.modellers_dream.ModellersDream.REGISTRATE;
 
 public class LangProvider {
@@ -20,6 +22,14 @@ public class LangProvider {
         ponderLang.addText("Right-Click the Track Connector with the Dispatcher Table to connect to the network, then place it somewhere");
         ponderLang.addText("Right-Click to open the Dispatcher Table GUI and go dispatch some trains!");
         ponderLang.addText("To dispatch trains you also need to put an empty train schedule to the driver!");
+
+        // Schedule Deployment Ponder
+        PonderLang schedulePonderLang = new PonderLang(ModellersDream.MOD_ID + ".ponder.deployer_schedule");
+        schedulePonderLang.setHeader("Deploying Schedules to Stations (Create: Modellers Dream)");
+        schedulePonderLang.addText("A Deployer holding a Schedule can deliver it straight to a Station");
+        schedulePonderLang.addText("With no Train at the Station, the Deployer simply does nothing");
+        schedulePonderLang.addText("Now that a Train is present...");
+        schedulePonderLang.addText("...the Schedule is handed directly to the Train's Conductor, and consumed");
 
         // Track Connector Texts
         SpecialLang TC = new SpecialLang(ModellersDream.MOD_ID + ".track_connector");
